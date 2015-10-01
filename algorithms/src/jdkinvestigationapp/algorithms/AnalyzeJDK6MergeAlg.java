@@ -3,33 +3,32 @@ package jdkinvestigationapp.algorithms;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class AnalyzeJDK6MergeAlg {
     
-    private static final AtomicLong COUNTER = new AtomicLong();
-    private static final AtomicLong RECURSION_CALL_COUNTER = new AtomicLong();
-    private final static int SIZE = 7;
-    private static final int INSERTIONSORT_THRESHOLD = 8;
+    private static int counter;
+    private static int recursion_call_counter;
+    private final static int SIZE = 6;
+    private static final int INSERTIONSORT_THRESHOLD = 7;
     
     public static void main(String[] args) throws Exception {
         String reportName = AnalyzeJDK6MergeAlg.class.getSimpleName() + "_THRESHOLD" + INSERTIONSORT_THRESHOLD + "_SIZE" + SIZE + ".txt";
         try (PrintWriter out = new PrintWriter(new FileOutputStream(reportName))) {
-            long counter = 0, counter1 = 0;
+            long total_counter = 0, total_counter1 = 0;
             PermutationGenerator gen = new PermutationGenerator(SIZE);
             Integer[] permutation = gen.next();
             while (permutation != null) {
                 out.print(Arrays.toString(permutation));
-                COUNTER.set(0);
-                RECURSION_CALL_COUNTER.set(0);
+                counter = 0;
+                recursion_call_counter = 0;
                 sort(permutation);
-                out.println(" : " + COUNTER.get() + " : " + RECURSION_CALL_COUNTER.get());
-                counter += COUNTER.get();
-                counter1 += RECURSION_CALL_COUNTER.get();
+                out.println(" : " + counter + " : " + recursion_call_counter);
+                total_counter += counter;
+                total_counter1 += recursion_call_counter;
                 permutation = gen.next();
             }
-            System.out.println("Total: " + counter + " : " + counter1);
-            out.println("Total: " + counter + " : " + counter1);
+            System.out.println("Total: " + total_counter + " : " + total_counter1);
+            out.println("Total: " + total_counter + " : " + total_counter1);
         }
     }
     
@@ -62,7 +61,7 @@ public class AnalyzeJDK6MergeAlg {
         low  += off;
         high += off;
         int mid = (low + high) >>> 1;
-        RECURSION_CALL_COUNTER.addAndGet(2);
+        recursion_call_counter += 2;
         mergeSort(dest, src, low, mid, -off);
         mergeSort(dest, src, mid, high, -off);
 
@@ -92,7 +91,7 @@ public class AnalyzeJDK6MergeAlg {
     }
     
     private static int compareTo(Comparable first, Object second) {
-        COUNTER.incrementAndGet();
+        counter++;
         return first.compareTo(second);
     }
     
