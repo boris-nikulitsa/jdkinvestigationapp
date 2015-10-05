@@ -1,0 +1,14 @@
+Security manager is set: true
+Call Class.forName & Class.newInstance
+New instance created
+Call action 4 times
+Access public fields through reflection
+[factorial=24], [arithmeticProgressionSum=10]
+Access public & private fields through reflection
+java.security.AccessControlException: access denied ("java.lang.reflect.ReflectPermission" "suppressAccessChecks")
+	at java.security.AccessControlContext.checkPermission(AccessControlContext.java:457)
+	at java.security.AccessController.checkPermission(AccessController.java:884)
+	at java.lang.SecurityManager.checkPermission(SecurityManager.java:549)
+	at java.lang.reflect.AccessibleObject.setAccessible(AccessibleObject.java:95)
+	at jdkinvestigationapp.jvmpermissions.ReflectionPermissionApp.readAllFields(ReflectionPermissionApp.java:55)
+	at jdkinvestigationapp.jvmpermissions.ReflectionPermissionApp.main(ReflectionPermissionApp.java:29)
