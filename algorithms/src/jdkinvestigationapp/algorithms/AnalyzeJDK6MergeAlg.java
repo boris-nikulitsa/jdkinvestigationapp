@@ -7,28 +7,25 @@ import java.util.Arrays;
 public class AnalyzeJDK6MergeAlg {
     
     private static int counter;
-    private static int recursion_call_counter;
-    private final static int SIZE = 6;
-    private static final int INSERTIONSORT_THRESHOLD = 7;
+    private final static int SIZE = 7;
+    private static final int INSERTIONSORT_THRESHOLD = 8;
     
     public static void main(String[] args) throws Exception {
         String reportName = AnalyzeJDK6MergeAlg.class.getSimpleName() + "_THRESHOLD" + INSERTIONSORT_THRESHOLD + "_SIZE" + SIZE + ".txt";
         try (PrintWriter out = new PrintWriter(new FileOutputStream(reportName))) {
-            long total_counter = 0, total_counter1 = 0;
+            long total_counter = 0;
             PermutationGenerator gen = new PermutationGenerator(SIZE);
             Integer[] permutation = gen.next();
             while (permutation != null) {
                 out.print(Arrays.toString(permutation));
                 counter = 0;
-                recursion_call_counter = 0;
                 sort(permutation);
-                out.println(" : " + counter + " : " + recursion_call_counter);
+                out.println(" : " + counter);
                 total_counter += counter;
-                total_counter1 += recursion_call_counter;
                 permutation = gen.next();
             }
-            System.out.println("Total: " + total_counter + " : " + total_counter1);
-            out.println("Total: " + total_counter + " : " + total_counter1);
+            System.out.println("Total: " + total_counter);
+            out.println("Total: " + total_counter);
         }
     }
     
@@ -61,7 +58,6 @@ public class AnalyzeJDK6MergeAlg {
         low  += off;
         high += off;
         int mid = (low + high) >>> 1;
-        recursion_call_counter += 2;
         mergeSort(dest, src, low, mid, -off);
         mergeSort(dest, src, mid, high, -off);
 
