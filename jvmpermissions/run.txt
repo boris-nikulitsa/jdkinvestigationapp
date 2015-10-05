@@ -1,0 +1,8 @@
+Security manager is set: false
+Call Class.forName & Class.newInstance
+New instance created
+Call action 1 times
+Access public fields through reflection
+[factorial=1], [arithmeticProgressionSum=1]
+Access public & private fields through reflection
+[callNumber=1], [factorial=1], [arithmeticProgressionSum=1]
