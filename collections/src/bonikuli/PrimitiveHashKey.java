@@ -26,6 +26,7 @@ public class PrimitiveHashKey {
         }
         for (int i=0; i<1000; ++i) {
             int original_key = list.get(i);
+            // we run fine here because of automaticall boxing/unboxing from int to Integer
             if (!Integer.valueOf(i).equals(test.int_map.get(original_key))) {
                 System.out.println("Failed for iteration=" + i + "; original key=" + original_key);
             }
@@ -42,6 +43,7 @@ public class PrimitiveHashKey {
         }
         for (int i=0; i<1000; ++i) {
             int[] original_key = list.get(i);
+            // we run fine here because we deal with same key objects
             if (!Integer.valueOf(i).equals(test.array_map.get(original_key))) {
                 System.out.println("Failed for iteration=" + i + "; original key=" + Arrays.toString(original_key));
             }
@@ -49,6 +51,8 @@ public class PrimitiveHashKey {
         for (int i=0; i<1000; ++i) {
             int[] original_key = list.get(i);
             int[] key_copy = Arrays.copyOf(original_key, original_key.length);
+            // we fail here because hashing is based array instance and not based on array content
+            // So in such case it's better to use IdentityHashMap and not expect that below case will work for us
             if (!Integer.valueOf(i).equals(test.array_map.get(key_copy))) {
                 System.out.println("Failed for iteration=" + i + "; original key=" + Arrays.toString(original_key) + "; key copy=" + Arrays.toString(key_copy));
             }
