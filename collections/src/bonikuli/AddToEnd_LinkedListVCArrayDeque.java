@@ -18,7 +18,7 @@ iteration 7170686 : ArrayDeque faster than LinkedList on 208956485 nanoseconds
 in total ArrayDeque faster than LinkedList on 9906751 nanoseconds
 
 #2
-iteration 4194303 : ArrayDeque slower than LinkedList on 170972758 nanoseconds
+iteration 4194303 : ArrayDeque slower than LinkedList on 170 972 758 nanoseconds
 iteration 5623026 : ArrayDeque faster than LinkedList on 165072449 nanoseconds
 in total ArrayDeque slower than LinkedList on 57889223 nanoseconds
 
